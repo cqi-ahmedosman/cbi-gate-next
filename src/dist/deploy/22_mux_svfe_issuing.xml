@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+
+<mux class="org.jpos.q2.iso.QMUX" logger="Q2" name="SVFE-ISSUING-MUX" realm="issuing">
+    <in>svfe-issuing-receive</in>
+    <out>svfe-issuing-send</out>
+    <ready>svfe-issuing-channel.ready</ready>
+
+
+    <request-listener class="org.jpos.iso.IncomingListener" logger="Q2" realm="issuing">
+
+        <property name="queue"  value="ISS-TXNMGR" />
+        <property name="ctx.DESTINATION"  value="DHI-MUX" />
+
+    </request-listener>
+
+</mux>
+

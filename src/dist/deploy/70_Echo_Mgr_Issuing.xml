@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<qbean name="echo-manager-issuing" logger="Q2" realm="echo-manager"
+       class="com.cannyquest.echo.EchoMgr">
+
+    <property name="echo-interval" value="30000" />
+
+    <property name="mux" value="SVFE-ISSUING-MUX" />
+    <property name="channel-ready" value="svfe-issuing-channel.ready" />
+    <property name="timeout" value="60000" />
+    <property name="keep-alive" value="true" />
+    <property name="space" value="svfe-issuing"/>
+
+</qbean>
