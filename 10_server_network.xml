@@ -1,0 +1,20 @@
+<server class="org.jpos.q2.iso.QServer" logger="Q2" name="SVFEServer">
+    <attr name="port" type="java.lang.Integer">8003</attr>
+    <attr name="maxSessions" type="java.lang.Integer">100</attr>
+    <attr name="minSessions" type="java.lang.Integer">10</attr>
+
+    <channel name="Network-Channel"
+             class="org.jpos.iso.channel.ASCIIChannel"
+             logger="Q2"
+             packager="org.jpos.iso.packager.GenericPackager">
+        <property name="packager-config" value="cfg/iso93ASCII-SVFE.xml" />
+        <property name="timeout" value="180000"/>
+
+
+    </channel>
+
+
+    <out>ACQUIRER_OUT</out>
+    <in>ACQUIRER_IN</in>
+
+</server>

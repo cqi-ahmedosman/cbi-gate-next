@@ -380,16 +380,11 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
                     dhiMsg.set(25, "00");
                     break;
             }
-
             stringBuilder.append("0");
-
             dhiMsg.set(22,stringBuilder.toString());
-
-
         }
 
         if(svfeMsg.hasField(23)){
-
             dhiMsg.set(23, "0"+svfeMsg.getString(23));
 
             /**
@@ -461,13 +456,6 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
             dhiMsg.set(32, DE32);
 
         }
-
-
-
-
-
-
-
 
 
         if(svfeMsg.hasField(33)){
@@ -574,11 +562,7 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
             StringBuilder builder = new StringBuilder();
             builder = builder.append(concat).append(cityName).append("IQ");
             dhiMsg.set(43, builder.toString());
-            /*
-            String stateName = tokenizer.nextToken();
-            String countryName = tokenizer.nextToken();
-            String postCode = tokenizer.nextToken();
-            */
+
         }
 
         if(svfeMsg.hasField("48.14")){
