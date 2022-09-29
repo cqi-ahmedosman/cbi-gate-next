@@ -66,12 +66,14 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
                 case ("700"):
                     if((svfeMsg.getString(3).substring(0,2).equals("01"))){
                         svfeTrxType = SvfeTrxType.CASHWITHDRAW;
-                        dhiField60.setPos1('2');
+                        dhiMsg.set("60.1", "2");
+                        //dhiField60.setPos1('2');
 
                     }
                     if((svfeMsg.getString(3).substring(0,2).equals("17"))) {
                         svfeTrxType = SvfeTrxType.CASHADVANCE;
-                        dhiField60.setPos1('0');
+                        dhiMsg.set("60.1", "0");
+                        //dhiField60.setPos1('0');
 
 
                     }
@@ -84,7 +86,8 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
                     break;
                 case "736":
                     svfeTrxType = SvfeTrxType.PREAUTH;
-                    dhiField60.setPos8('4');
+                    dhiMsg.set("60.8", "4");
+                    //dhiField60.setPos8('4');
                     dhiMsg.set("63.2", "0000");
 
                     break;
@@ -96,7 +99,7 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
                     break;
                 case "737":
                     svfeTrxType = SvfeTrxType.COMPLETION;
-                    String bytes = ISOUtil.padleft(svfeMsg.getString(4),24,'0');
+                    //String bytes = ISOUtil.padleft(svfeMsg.getString(4),24,'0');
                     dhiMsg.set(30, ISOUtil.padleft(svfeMsg.getString(4),24,'0'));
                     break;
                 case "508":
@@ -109,7 +112,7 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
         } else
             svfeTrxType = SvfeTrxType.CASHWITHDRAW;
 
-        dhiMsg.set(60, dhiField60.get());
+        //dhiMsg.set(60, dhiField60.get());
 
 
         switch (MTI){

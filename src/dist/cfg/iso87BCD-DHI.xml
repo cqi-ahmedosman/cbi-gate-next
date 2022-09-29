@@ -399,94 +399,76 @@
     <isofield
             id="1"
             length="1"
-            name="60.1"
+            name="DHI-Terminal-Type"
             class="org.jpos.iso.IFB_BINARY"/>
 
     <isofield
             id="2"
             length="1"
-            name="60.2"
+            name="DHI-Terminal-Entry-Capability"
             class="org.jpos.iso.IFB_BINARY"/>
 
     <isofield
             id="3"
             length="1"
-            name="60.3"
+            name="DHI-Chip-Condition-Code"
             class="org.jpos.iso.IFB_BINARY"/>
 
     <isofield
             id="4"
             length="1"
-            name="60.4"
+            name="DHI-New-Service-Development"
             class="org.jpos.iso.IFB_BINARY"/>
 
     <isofield
             id="5"
-            length="1"
-            name="60.5"
+            length="2"
+            name="DHI-Merchant-Group-Indicator"
             class="org.jpos.iso.IFB_BINARY"/>
 
     <isofield
             id="6"
             length="1"
-            name="60.6"
+            name="DHI-Transaction-Indicator"
             class="org.jpos.iso.IFB_BINARY"/>
 
     <isofield
             id="7"
             length="1"
-            name="60.7"
+            name="DHI-Card-Authentication-Capability"
             class="org.jpos.iso.IFB_BINARY"/>
 
 
     <isofield
             id="8"
-            length="1"
-            name="60.8"
+            length="2"
+            name="DHI-E-Commerce-Indicator"
             class="org.jpos.iso.IFB_BINARY"/>
 
 
     <isofield
             id="9"
             length="1"
-            name="60.9"
+            name="DHI-RFU"
             class="org.jpos.iso.IFB_BINARY"/>
 
 
     <isofield
             id="10"
             length="1"
-            name="60.10"
-            class="org.jpos.iso.IFB_BINARY"/>
-
-    <isofield
-            id="10"
-            length="1"
-            name="60.10"
+            name="DHI-Partial-Authorization-Indicator"
             class="org.jpos.iso.IFB_BINARY"/>
 
     <isofield
             id="11"
             length="1"
-            name="60.11"
+            name="DHI-Terminal-Indicator-TLE"
             class="org.jpos.iso.IFB_BINARY"/>
 
     <isofield
             id="12"
             length="1"
-            name="60.12"
-            class="org.jpos.iso.IFB_BINARY"/>
-
-    <isofield
-            id="13"
-            length="1"
-            name="60.13"
-            class="org.jpos.iso.IFB_BINARY"/>
-
-    <isofield
-            id="14"
-            length="1"
-            name="60.14"
+            name="DHI-Terminal-Indicator-DUKPT"
             class="org.jpos.iso.IFB_BINARY"/>
 
 

@@ -40,37 +40,41 @@ public class prepareIssuingContext extends QBeanSupport implements TransactionPa
              */
 
 
-            ISOMsg svfeDE22 = (ISOMsg) msg.getComponent(22);
-            Map de22Children = svfeDE22.getChildren();
-            int x = de22Children.size();
-            de22Children.forEach((k,v)->{
+            if (msg.hasField(22)) {
+                ISOMsg svfeDE22 = (ISOMsg) msg.getComponent(22);
+                Map de22Children = svfeDE22.getChildren();
+                int x = de22Children.size();
+                de22Children.forEach((k,v)->{
 
-                ctx.put(svfeDE22.getPackager().getFieldDescription(svfeDE22, (int)k),msg.getString("22."+k));
-
-
-            });
+                    ctx.put(svfeDE22.getPackager().getFieldDescription(svfeDE22, (int)k),msg.getString("22."+k));
 
 
-
-            ISOMsg svfeDE48 = (ISOMsg) msg.getComponent(48);
-            Map de48Children = svfeDE48.getChildren();
-            de48Children.forEach((k,v)->{
-
-                ctx.put(svfeDE48.getPackager().getFieldDescription(svfeDE48, (int)k),msg.getString("48."+k));
+                });
+            }
 
 
-            });
+            if (msg.hasField(48)) {
+                ISOMsg svfeDE48 = (ISOMsg) msg.getComponent(48);
+                Map de48Children = svfeDE48.getChildren();
+                de48Children.forEach((k,v)->{
+
+                    ctx.put(svfeDE48.getPackager().getFieldDescription(svfeDE48, (int)k),msg.getString("48."+k));
 
 
-
-            ISOMsg svfeDE54 = (ISOMsg) msg.getComponent(54);
-            Map de54Children = svfeDE54.getChildren();
-            de54Children.forEach((k,v)->{
-
-                ctx.put(svfeDE54.getPackager().getFieldDescription(svfeDE54, (int)k),msg.getString("54."+k));
+                });
+            }
 
 
-            });
+            if (msg.hasField(54)) {
+                ISOMsg svfeDE54 = (ISOMsg) msg.getComponent(54);
+                Map de54Children = svfeDE54.getChildren();
+                de54Children.forEach((k,v)->{
+
+                    ctx.put(svfeDE54.getPackager().getFieldDescription(svfeDE54, (int)k),msg.getString("54."+k));
+
+
+                });
+            }
         } catch (ISOException e) {
             throw new RuntimeException(e);
         }
