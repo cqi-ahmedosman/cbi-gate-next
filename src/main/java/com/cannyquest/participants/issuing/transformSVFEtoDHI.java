@@ -32,6 +32,9 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
         ISOMsg msg = (ISOMsg) ctx.get(ContextConstants.REQUEST.toString());
         ISOMsg dhiReq;
 
+        ctx.dump(System.out, "");
+
+
         ctx.put("SVFE-ORIGINAL-REQUEST", msg);
         try {
             GenericPackager svfe = new GenericPackager("cfg/iso93ASCII-SVFE.xml");

@@ -17,7 +17,7 @@
     <participant class="org.jpos.transaction.participant.QueryHost" logger="Q2"/>
     <participant class="com.cannyquest.participants.issuing.transformDHItoSVFE" logger="Q2"/>
     <participant class="org.jpos.transaction.participant.SendResponse" logger="Q2"/>
-    <participant class="com.cannyquest.participants.issuing.LogIT" logger="Q2"/>
+    <participant class="com.cannyquest.participants.issuing.queue" logger="Q2"/>
 
 
 

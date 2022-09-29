@@ -130,68 +130,68 @@
     <isofield
             id="0"
             length="1"
-            name="Field 59.1"
+            name="SVFE-Card-Data-Input-Capability"
             class="org.jpos.iso.IF_CHAR"/>
 
     <isofield
             id="1"
             length="1"
-            name="Field 59.1"
+            name="SVFE-Card-Data-Input-Capabiltiy"
             class="org.jpos.iso.IF_CHAR"/>
     <isofield
             id="2"
             length="1"
-            name="Field 59.2"
+            name="SVFE-Cardholder-Authentication-Capability"
             class="org.jpos.iso.IF_CHAR"/>
     <isofield
             id="3"
             length="1"
-            name="Field 59.3"
+            name="SVFE-Card-Capture-Capability"
             class="org.jpos.iso.IF_CHAR"/>
     <isofield
             id="4"
             length="1"
-            name="Field 59.1"
+            name="SVFE-Operating-Environment"
             class="org.jpos.iso.IF_CHAR"/>
     <isofield
             id="5"
             length="1"
-            name="Field 59.2"
+            name="SVFE-Cardholder-Presence-Indicator"
             class="org.jpos.iso.IF_CHAR"/>
     <isofield
             id="6"
             length="1"
-            name="Field 59.3"
+            name="SVFE-Card-Presence"
             class="org.jpos.iso.IF_CHAR"/>
     <isofield
             id="7"
             length="1"
-            name="Field 59.3"
+            name="SVFE-Card-Data-Input-Method"
             class="org.jpos.iso.IF_CHAR"/>
     <isofield
             id="8"
             length="1"
-            name="Field 59.1"
+            name="SVFE-Cardholder-Authentication-Method"
             class="org.jpos.iso.IF_CHAR"/>
     <isofield
             id="9"
             length="1"
-            name="Field 59.2"
+            name="SVFE-Cardholder-Authentication-Entity"
             class="org.jpos.iso.IF_CHAR"/>
     <isofield
             id="10"
             length="1"
-            name="Field 59.3"
+            name="SVFE-Card-Data-Output-Capability"
             class="org.jpos.iso.IF_CHAR"/>
     <isofield
             id="11"
             length="1"
-            name="Field 59.2"
+            name="SVFE-Terminal-Output-Capability"
             class="org.jpos.iso.IF_CHAR"/>
     <isofield
             id="12"
             length="1"
-            name="Field 59.3"
+            name="SVFE-PIN-Capture-Capability"
             class="org.jpos.iso.IF_CHAR"/>
   </isofieldpackager>
 
@@ -342,12 +342,12 @@
       <isofield
           id="2"
           length="99"
-          name="TRX-TYPE"
+          name="SVFE-TRX-TYPE"
           class="org.jpos.iso.IFA_TTTLLLCHAR"/>
       <isofield
           id="4"
           length="99"
-          name="CVC2/CVV2-Present-Indicator"
+          name="SVFE-CVC2-CVV2-Present-Indicator"
           class="org.jpos.iso.IFA_TTTLLLCHAR"/>
       <isofield
           id="12"
