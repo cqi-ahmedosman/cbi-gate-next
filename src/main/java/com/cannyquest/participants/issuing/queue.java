@@ -40,17 +40,15 @@ public class queue extends QBeanSupport implements TransactionParticipant, Confi
         ISOMsg msg_req = (ISOMsg) ctx.get(ContextConstants.REQUEST.toString());
         ISOMsg msg_res = (ISOMsg) ctx.get(ContextConstants.RESPONSE.toString());
 
-        try {
-            msg_req.setPackager(new JSONPackager());
-            msg_res.setPackager(new JSONPackager());
-
-
-        } catch (ISOException e) {
-            throw new RuntimeException(e);
-        }
-
         ISOMsg msg = msg_req;
         msg.merge(msg_res);
+
+        String json = null;
+
+
+
+
+
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("172.17.0.2");
         try (
