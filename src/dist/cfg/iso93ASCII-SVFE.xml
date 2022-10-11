@@ -639,6 +639,12 @@
             class="org.jpos.iso.IFA_TTTLLLCHAR"/>
 
     <isofield
+            id="66"
+            length="99"
+            name="SVFE-DE48-TAG-66"
+            class="org.jpos.iso.IFA_TTTLLLCHAR"/>
+
+    <isofield
             id="857"
             length="99"
             name="SVFE-CBI-PRIVATE"

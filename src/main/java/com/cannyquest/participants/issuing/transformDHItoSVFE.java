@@ -26,18 +26,15 @@ public class transformDHItoSVFE implements TransactionParticipant, Configurable 
     @Override
     public int prepare(long id, Serializable context) {
         Context ctx = (Context) context;
+
         ISOMsg dhiResponse = (ISOMsg) ctx.get(ContextConstants.RESPONSE.toString());
         ISOMsg svfeResponse = (ISOMsg) ctx.get("SVFE-ORIGINAL-REQUEST");
 
 
         if (dhiResponse != null) {
             try {
-
                 svfeResponse.setResponseMTI();
-
-
                 svfeResponse.unset(new int[] {14,18,22,35,42,43,100});
-
                 if (dhiResponse.hasField(38)) {
                     svfeResponse.set(38, dhiResponse.getString(38));
                 }

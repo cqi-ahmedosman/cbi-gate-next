@@ -3,7 +3,7 @@
 <channel-adaptor name='svfe-issuing-channel' class="org.jpos.q2.iso.ChannelAdaptor" logger="Q2" realm="issuing">
     <channel class="org.jpos.iso.channel.ASCIIChannel"
           packager="org.jpos.iso.packager.GenericPackager" logger="Q2" >
-        <property name="host" value="172.17.0.5" />
+        <property name="host" value="172.17.0.4" />
         <property name="port" value="8003" />
         <property name="keep-alive" value="true" />
         <property name="packager-config" value="cfg/iso93ASCII-SVFE.xml" />

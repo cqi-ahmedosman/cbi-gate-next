@@ -152,25 +152,25 @@
     <isofield
             id="1"
             length="1"
-            name="22.1"
+            name="DHI_PAN_DATA_ENTRY_MODE_1"
             class="org.jpos.iso.IFB_BINARY"/>
 
     <isofield
             id="2"
             length="1"
-            name="22.2"
+            name="DHI_PAN_DATA_ENTRY_MODE_2"
             class="org.jpos.iso.IFB_BINARY"/>
 
     <isofield
             id="3"
             length="1"
-            name="22.3"
+            name="DHI_PIN_ENTRY_CAPABILITY"
             class="org.jpos.iso.IFB_BINARY"/>
 
     <isofield
             id="4"
             length="1"
-            name="22.4"
+            name="DHI_DE22_UNUSED"
             class="org.jpos.iso.IFB_BINARY"/>
 
   </isofieldpackager>

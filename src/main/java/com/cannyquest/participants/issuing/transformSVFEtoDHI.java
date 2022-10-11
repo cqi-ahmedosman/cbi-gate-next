@@ -3,18 +3,14 @@ package com.cannyquest.participants.issuing;
 import org.jpos.core.Configurable;
 import org.jpos.core.Configuration;
 import org.jpos.core.ConfigurationException;
-import org.jpos.core.Track2;
 import org.jpos.iso.*;
 import org.jpos.iso.packager.GenericPackager;
 import org.jpos.q2.QBeanSupport;
 import org.jpos.transaction.Context;
 import org.jpos.transaction.ContextConstants;
 import org.jpos.transaction.TransactionParticipant;
-import org.jpos.util.Log;
-import org.jpos.util.Logger;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 
@@ -43,7 +39,7 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
             e.printStackTrace();
         }
         try {
-            dhiReq = this.transformer(msg);
+            dhiReq = this.transformer(msg ,ctx);
             ctx.put(ContextConstants.REQUEST.toString(), dhiReq);
         } catch (ISOException e) {
             e.printStackTrace();
@@ -52,7 +48,7 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
         return PREPARED | NO_JOIN | READONLY;
     }
 
-    public ISOMsg transformer(ISOMsg svfeMsg) throws ISOException {
+    public ISOMsg transformer(ISOMsg svfeMsg, Context ctx) throws ISOException {
         ISOMsg dhiMsg = new ISOMsg();
         DHIField60 dhiField60 = new DHIField60();
         String MTI = svfeMsg.getMTI();
@@ -327,6 +323,133 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
 
         if(svfeMsg.hasField(22)){
 
+            String s = ctx.getString("SVFE-Card-Data-Input-Method");
+
+            switch (s) {
+                case "0": //Unspecified
+                    dhiMsg.set("22.1","0");
+                    dhiMsg.set("22.2","0");
+
+                    break;
+                case "1": //Manual, no terminal
+                    dhiMsg.set("22.1","0");
+                    dhiMsg.set("22.2","1");
+
+                    break;
+                case "2": //Magnetic stripe read
+                    dhiMsg.set("22.1","0");
+                    dhiMsg.set("22.2","2");
+
+                    break;
+                case "3": //BAR CODE
+                    dhiMsg.set("22.1","0");
+                    dhiMsg.set("22.2","3");
+                    break;
+                case "4": //OCR
+                    dhiMsg.set("22.1","0");
+                    dhiMsg.set("22.2","4");
+                    break;
+                case "5": //CHIP
+                    dhiMsg.set("22.1","0");
+                    dhiMsg.set("22.2","5");
+
+                    break;
+                case "6": // KEY ENTRY
+                    dhiMsg.set("22.1","7");
+                    dhiMsg.set("22.2","1");
+
+                    break;
+                case "7": //Contactless ICC read
+                    dhiMsg.set("22.1","0");
+                    dhiMsg.set("22.2","7");
+
+                    break;
+                case "8": //Contactless magnetic stripe read
+                    dhiMsg.set("22.1","9");
+                    dhiMsg.set("22.2","1");
+
+                    break;
+                case "9": //Contactless read
+                    dhiMsg.set("22.1","0");
+                    dhiMsg.set("22.2","7");
+
+                    break;
+                case "S": //E-commerce, merchant certificate only
+                    dhiMsg.set("22.1","8");
+                    dhiMsg.set("22.2","1");
+
+                    break;
+                case "T": //E-commerce, merchant and cardholder certificate / 3-D Secure transaction
+                    dhiMsg.set("22.1","8");
+                    dhiMsg.set("22.2","1");
+                    break;
+                case "U": //E-commerce, no security
+                    dhiMsg.set("22.1","0");
+                    dhiMsg.set("22.2","1");
+                    break;
+                case "V": //E-commerce, channel encryption
+                    dhiMsg.set("22.1","8");
+                    dhiMsg.set("22.2","1");
+                    break;
+                case "W": //Auto entry from external system
+                    dhiMsg.set("22.1","8");
+                    dhiMsg.set("22.2","1");
+                    break;
+                default:
+                    dhiMsg.set("22.1","0");
+                    dhiMsg.set("22.2","0");
+                    break;
+            }
+
+            s = ctx.getString("SVFE-PIN-Capture-Capability");
+
+            switch (s){
+
+                case "0": //No PIN capture capability
+                    dhiMsg.set("22.3","0");
+                    break;
+                case "1": //Unknown
+                    dhiMsg.set("22.3","0");
+                    break;
+                case "4": //PIN capture capability 4 characters maximum
+                    dhiMsg.set("22.3","1");
+                    break;
+                case "5": //PIN capture capability 5 characters maximum
+                    dhiMsg.set("22.3","1");
+                    break;
+                case "6": //PIN capture capability 6 characters maximum
+                    dhiMsg.set("22.3","1");
+                    break;
+                case "7": // PIN capture capability 7 characters maximum
+                    dhiMsg.set("22.3","1");
+                    break;
+                case "8": //PIN capture capability 8 characters maximum
+                    dhiMsg.set("22.3","1");
+                    break;
+                case "9": //PIN capture capability 9 characters maximum
+                    dhiMsg.set("22.3","1");
+                    break;
+                case "A": //PIN capture capability 10 characters maximum
+                    dhiMsg.set("22.3","1");
+                    break;
+                case "B": //PIN capture capability 11 characters maximum
+                    dhiMsg.set("22.3","1");
+                    break;
+                case "C": //PIN capture capability 12 characters maximum
+                    dhiMsg.set("22.3","1");
+                    break;
+                    default:
+                    dhiMsg.set("22.1","");
+                    break;
+            }
+
+
+            dhiMsg.set("22.4", "0");
+
+
+
+
+            /*
             String DE22 = (svfeMsg.getString(22));
             StringBuilder stringBuilder = new StringBuilder();
 
@@ -388,6 +511,8 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
             }
             stringBuilder.append("0");
             dhiMsg.set(22,stringBuilder.toString());
+
+             */
         }
 
         if(svfeMsg.hasField(23)){
@@ -598,7 +723,6 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
 
         if(svfeTrxType.equals(SvfeTrxType.BILLPAYMENT)){
 
-            dhiMsg.set(22,"0120");
             dhiMsg.set(60, "00020800800000");
         }
 
