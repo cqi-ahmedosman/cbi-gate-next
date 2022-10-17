@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+
+<mux class="org.jpos.q2.iso.QMUX"  logger="Q2" name="SVFE-ACQUIRING-MUX" realm="acquiring">
+    <in>svfe-acquiring-receive</in>
+    <out>svfe-acquiring-send</out>
+    <ready>svfe-acquiring-channel.ready</ready>
+
+
+
+
+</mux>
+

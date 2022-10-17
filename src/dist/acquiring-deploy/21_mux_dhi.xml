@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<mux class="org.jpos.q2.iso.QMUX" logger="Q2" name="DHI-MUX">
+
+    <in>dhi-receive</in>
+    <out>dhi-send</out>
+    <ready>dhi-channel.ready dhi-channel-2.ready</ready>
+
+
+    <request-listener class="org.jpos.iso.IncomingListener" logger="Q2" realm="acquiring">
+        <property name="queue"  value="ACQ-TXNMGR" />
+        <property name="ctx.DESTINATION"  value="SVFE-ACQUIRING-MUX" />
+    </request-listener>
+
+</mux>
+

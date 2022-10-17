@@ -33,13 +33,8 @@ public class prepareIssuingContext extends QBeanSupport implements TransactionPa
             GenericPackager genericPackager = new GenericPackager("cfg/iso93ASCII-SVFE.xml") ;
             msg.setPackager(genericPackager);
 
-
-
             /*
-
-
             This is how the context should look like
-
                   SVFE-Card-Data-Input-Capabiltiy: 5
                   SVFE-Cardholder-Authentication-Capability: 1
                   SVFE-Card-Capture-Capability: 0
@@ -57,7 +52,6 @@ public class prepareIssuingContext extends QBeanSupport implements TransactionPa
                   SVFE-Terminal-Type: 2
                   SVFE-FINANCIAL-TRX-INDICATOR: 1
                   SVFE-CHIP-COND-CODE: 0
-
              */
 
             if (msg.hasField(22)) {

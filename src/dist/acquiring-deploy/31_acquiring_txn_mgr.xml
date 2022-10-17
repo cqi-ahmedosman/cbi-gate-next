@@ -1,0 +1,49 @@
+<?xml version='1.0'?>
+<txnmgr name="ACQ-TXNMGR" class="org.jpos.transaction.TransactionManager"  realm="acquiring" logger="Q2">
+    <property name="queue" value="ACQ-TXNMGR"/>
+    <property name="sessions" value="2"/>
+    <property name="max-sessions" value="128"/>
+    <property name="debug" value="true"/>
+    <property name="debug-context" value="true"/>
+
+
+    <participant class="com.cannyquest.participants.Switch" logger="Q2">
+        <property name="500000" value="BillPayment" />
+    </participant>
+
+    <group name="BillPayment">
+
+        <participant class="com.cannyquest.participants.billpayment.transformPOStoSVFE" logger="Q2"/>
+        <participant class="org.jpos.transaction.participant.QueryHost" logger="Q2"/>
+        <participant class="com.cannyquest.participants.billpayment.transfromSVFEtoPOS" logger="Q2"/>
+        <participant class="org.jpos.transaction.participant.SendResponse" logger="Q2"/>
+
+    </group>
+
+    <group name="FINANCIAL">
+        <participant class="com.cannyquest.participants.acquiring.BlockMCC" logger="Q2">
+                <property name="blocked-mcc" value="6010"/>
+                <property name="blocked-mcc" value="6011"/>
+        </participant>
+
+
+        <participant class="com.cannyquest.participants.acquiring.BlockCashExpress" logger="Q2"/>
+        <participant class="com.cannyquest.participants.acquiring.MockAcquirerID" logger="Q2"/>
+        <participant class="com.cannyquest.participants.acquiring.transformDHItoSVFE" logger="Q2"/>
+
+        <!--
+        <participant class="com.cannyquest.participants.acquiring.MockPINBlock"/>
+
+        <participant class="com.cannyquest.participants.acquiring.calcFees">
+            <property name="CashWithdrawalFees" value="0.004" />
+        </participant>
+
+        -->
+
+        <participant class="org.jpos.transaction.participant.QueryHost" logger="Q2"/>
+        <participant class="com.cannyquest.participants.acquiring.transfromSVFEtoDHI" logger="Q2"/>
+        <participant class="org.jpos.transaction.participant.SendResponse" logger="Q2"/>
+
+    </group>
+
+</txnmgr>

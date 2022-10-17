@@ -329,17 +329,15 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
                 case "0": //Unspecified
                     dhiMsg.set("22.1","0");
                     dhiMsg.set("22.2","0");
-
                     break;
                 case "1": //Manual, no terminal
+                case "U": //E-commerce, no security
                     dhiMsg.set("22.1","0");
                     dhiMsg.set("22.2","1");
-
                     break;
                 case "2": //Magnetic stripe read
                     dhiMsg.set("22.1","0");
                     dhiMsg.set("22.2","2");
-
                     break;
                 case "3": //BAR CODE
                     dhiMsg.set("22.1","0");
@@ -352,39 +350,29 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
                 case "5": //CHIP
                     dhiMsg.set("22.1","0");
                     dhiMsg.set("22.2","5");
-
                     break;
                 case "6": // KEY ENTRY
                     dhiMsg.set("22.1","7");
                     dhiMsg.set("22.2","1");
-
                     break;
                 case "7": //Contactless ICC read
                     dhiMsg.set("22.1","0");
                     dhiMsg.set("22.2","7");
-
                     break;
                 case "8": //Contactless magnetic stripe read
                     dhiMsg.set("22.1","9");
                     dhiMsg.set("22.2","1");
-
                     break;
                 case "9": //Contactless read
                     dhiMsg.set("22.1","0");
                     dhiMsg.set("22.2","7");
-
                     break;
                 case "S": //E-commerce, merchant certificate only
                     dhiMsg.set("22.1","8");
                     dhiMsg.set("22.2","1");
-
                     break;
                 case "T": //E-commerce, merchant and cardholder certificate / 3-D Secure transaction
                     dhiMsg.set("22.1","8");
-                    dhiMsg.set("22.2","1");
-                    break;
-                case "U": //E-commerce, no security
-                    dhiMsg.set("22.1","0");
                     dhiMsg.set("22.2","1");
                     break;
                 case "V": //E-commerce, channel encryption
@@ -406,40 +394,24 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
             switch (s){
 
                 case "0": //No PIN capture capability
-                    dhiMsg.set("22.3","0");
+                    dhiMsg.set("22.3","2");
                     break;
                 case "1": //Unknown
                     dhiMsg.set("22.3","0");
                     break;
                 case "4": //PIN capture capability 4 characters maximum
-                    dhiMsg.set("22.3","1");
-                    break;
                 case "5": //PIN capture capability 5 characters maximum
-                    dhiMsg.set("22.3","1");
-                    break;
                 case "6": //PIN capture capability 6 characters maximum
-                    dhiMsg.set("22.3","1");
-                    break;
                 case "7": // PIN capture capability 7 characters maximum
-                    dhiMsg.set("22.3","1");
-                    break;
                 case "8": //PIN capture capability 8 characters maximum
-                    dhiMsg.set("22.3","1");
-                    break;
                 case "9": //PIN capture capability 9 characters maximum
-                    dhiMsg.set("22.3","1");
-                    break;
                 case "A": //PIN capture capability 10 characters maximum
-                    dhiMsg.set("22.3","1");
-                    break;
                 case "B": //PIN capture capability 11 characters maximum
-                    dhiMsg.set("22.3","1");
-                    break;
                 case "C": //PIN capture capability 12 characters maximum
                     dhiMsg.set("22.3","1");
                     break;
-                    default:
-                    dhiMsg.set("22.1","");
+                default:
+                    dhiMsg.set("22.1","0");
                     break;
             }
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<channel-adaptor name='svfe-issuing-channel' class="org.jpos.q2.iso.ChannelAdaptor" logger="Q2" realm="issuing">
+    <channel class="org.jpos.iso.channel.ASCIIChannel"
+          packager="org.jpos.iso.packager.GenericPackager" logger="Q2" >
+        <property name="host" value="172.17.0.6" />
+        <property name="port" value="8003" />
+        <property name="keep-alive" value="true" />
+        <property name="packager-config" value="cfg/iso93ASCII-SVFE.xml" />
+
+    </channel>
+    <in>svfe-issuing-send</in>
+    <out>svfe-issuing-receive</out>
+    <reconnect-delay>10000</reconnect-delay>
+
+
+
+</channel-adaptor>
+
