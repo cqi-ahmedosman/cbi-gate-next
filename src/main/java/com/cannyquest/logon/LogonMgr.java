@@ -38,10 +38,9 @@ public class LogonMgr extends QBeanSupport implements Runnable {
 
 
         sp.out("SVFE_TRACE", SVFE_TRACE);
-        log.info("Running ");
+
 
         for (int tickCount=0; running (); tickCount++) {
-            log.info ("tick " + tickCount);
             try {
                 QMUX mux = (QMUX) NameRegistrar.getIfExists("mux."+cfg.get("mux"));
 

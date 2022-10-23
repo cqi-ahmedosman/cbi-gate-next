@@ -10,7 +10,7 @@
 
     <!--participant class="com.cannyquest.participants.issuing.mockPINBlock"/-->
     <participant class="com.cannyquest.participants.issuing.BlockAcqID"  logger="Q2">
-        <property name="blocked-AcqID" value="111111"/>
+        <property name="blocked-AcqID" value="${BLOCKED_ACQ_ID}"/>
     </participant>
     <participant class="com.cannyquest.participants.issuing.transformSVFEtoDHI" logger="Q2"/>
 

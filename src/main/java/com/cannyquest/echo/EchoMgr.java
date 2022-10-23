@@ -33,10 +33,8 @@ public class EchoMgr extends QBeanSupport implements Runnable {
         Space sp = SpaceFactory.getSpace("je:"+cfg.get("space"));
 
 
-        log.info("Running ");
 
         for (int tickCount=5; running (); tickCount++) {
-            log.info ("tick " + tickCount);
             ISOUtil.sleep ( cfg.getLong("echo-interval", ECHO_INTERVAL));
 
             try {

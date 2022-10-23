@@ -3,8 +3,8 @@
 <channel-adaptor name='svfe-acquiring-channel' class="org.jpos.q2.iso.ChannelAdaptor" logger="Q2" realm="acquiring">
     <channel class="org.jpos.iso.channel.ASCIIChannel"
           packager="org.jpos.iso.packager.GenericPackager" logger="Q2" >
-        <property name="host" value="172.17.0.5" />
-        <property name="port" value="8002" />
+        <property name="host" value="${SVFE_ACQUIRING_IP}" />
+        <property name="port" value="${SVFE_ACQUIRING_PORT}" />
         <property name="keep-alive" value="true" />
         <property name="packager-config" value="cfg/iso93ASCII-SVFE.xml" />
 

@@ -9,4 +9,5 @@
     <property name="keep-alive" value="true" />
     <property name="log-off" value="false"/>
     <property name="space" value="svfe-acquiring"/>
+    <property name="env-test" value="${SVFE-IP}"/>
 </qbean>
