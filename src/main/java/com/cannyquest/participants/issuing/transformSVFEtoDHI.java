@@ -28,6 +28,7 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
         ISOMsg msg = (ISOMsg) ctx.get(ContextConstants.REQUEST.toString());
         ISOMsg dhiReq;
 
+
         ctx.dump(System.out, "");
 
 
@@ -679,7 +680,6 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
 
 
         if(svfeMsg.hasField(52)){
-            log.info(ISOUtil.hex2byte(svfeMsg.getString(52)));
             dhiMsg.set(52, (ISOUtil.hex2byte(svfeMsg.getString(52))));
             dhiMsg.set(53, "2001010100000000");
 
