@@ -1,18 +1,18 @@
-package com.cannyquest.participants.billpayment;
+package com.cannyquest.participants.acquiring.retail;
 
 import org.jpos.core.Configurable;
 import org.jpos.core.Configuration;
 import org.jpos.core.ConfigurationException;
-import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOMsg;
+import org.jpos.q2.QBeanSupport;
 import org.jpos.transaction.Context;
 import org.jpos.transaction.ContextConstants;
 import org.jpos.transaction.TransactionParticipant;
 
 import java.io.Serializable;
 
-public class transfromSVFEtoPOS implements TransactionParticipant, Configurable {
-    Configuration cfg;
+public class MockAcquirerID extends QBeanSupport implements TransactionParticipant, Configurable {
+
     @Override
     public void setConfiguration(Configuration cfg) throws ConfigurationException {
         this.cfg = cfg;
@@ -22,16 +22,10 @@ public class transfromSVFEtoPOS implements TransactionParticipant, Configurable 
     @Override
     public int prepare(long id, Serializable context) {
         Context ctx = (Context) context;
-        ISOMsg svfeResponse = (ISOMsg) ctx.get(ContextConstants.RESPONSE.toString());
-        //ISOMsg dhiResponse = (ISOMsg) ctx.get("DHI-ORIGINAL-REQUEST");
-
-
-        if (svfeResponse != null) {
-
-                ctx.put(ContextConstants.RESPONSE.toString(),svfeResponse);
-            }
-
-
+        ISOMsg msg = (ISOMsg) ctx.get(ContextConstants.REQUEST.toString());
+        msg.set(32,"1432");
+        msg.set(100, "1432");
+        ctx.put(ContextConstants.REQUEST.toString(), msg);
         return PREPARED | NO_JOIN | READONLY;
     }
 }

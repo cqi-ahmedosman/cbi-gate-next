@@ -5,21 +5,13 @@
     <property name="max-sessions" value="128"/>
     <property name="debug" value="false"/>
     <property name="debug-context" value="false"/>
-
     <participant class="com.cannyquest.participants.issuing.prepareIssuingContext" logger="Q2"/>
-
-    <!--participant class="com.cannyquest.participants.issuing.mockPINBlock"/-->
     <participant class="com.cannyquest.participants.issuing.BlockAcqID"  logger="Q2">
         <property name="blocked-AcqID" value="${BLOCKED_ACQ_ID}"/>
     </participant>
     <participant class="com.cannyquest.participants.issuing.transformSVFEtoDHI" logger="Q2"/>
-
     <participant class="org.jpos.transaction.participant.QueryHost" logger="Q2"/>
     <participant class="com.cannyquest.participants.issuing.transformDHItoSVFE" logger="Q2"/>
     <participant class="org.jpos.transaction.participant.SendResponse" logger="Q2"/>
-    <participant class="com.cannyquest.participants.issuing.LogIT" logger="Q2"/>
-
-
-
 </txnmgr>
 

@@ -1,4 +1,4 @@
-package com.cannyquest.participants.acquiring;
+package com.cannyquest.participants.acquiring.retail;
 
 import org.jpos.core.Configurable;
 import org.jpos.core.Configuration;

@@ -1,4 +1,4 @@
-package com.cannyquest.participants.acquiring;
+package com.cannyquest.participants.acquiring.billpayment;
 
 import org.jpos.core.*;
 import org.jpos.iso.ISODate;
@@ -14,7 +14,6 @@ import org.jpos.q2.QBeanSupport;
 import org.jpos.space.Space;
 import org.jpos.space.SpaceFactory;
 import org.jpos.space.SpaceUtil;
-import org.jpos.tlv.TLVList;
 import org.jpos.transaction.Context;
 import org.jpos.transaction.ContextConstants;
 import org.jpos.transaction.TransactionParticipant;
@@ -24,7 +23,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class transformDHItoSVFE extends QBeanSupport implements TransactionParticipant, Configurable {
+public class transformPOStoSVFE extends QBeanSupport implements TransactionParticipant, Configurable {
     Configuration cfg;
     @Override
     public void setConfiguration(Configuration cfg) throws ConfigurationException {
@@ -37,7 +36,6 @@ public class transformDHItoSVFE extends QBeanSupport implements TransactionParti
         Context ctx = (Context) context;
         ISOMsg msg = (ISOMsg) ctx.get(ContextConstants.REQUEST.toString());
         ISOMsg svfeReq = null;
-        //ctx.put("DHI-ORIGINAL-REQUEST", msg);
         try {
             svfeReq = this.transformer(msg);
         } catch (ISOException e) {
@@ -67,7 +65,7 @@ public class transformDHItoSVFE extends QBeanSupport implements TransactionParti
 
         ISOMsg svfeMsg = new ISOMsg();
         Space sp = SpaceFactory.getSpace("je:svfeSpace");
-        svfeMsg.set("48.12", "2");
+
 
 
         /**
@@ -76,13 +74,12 @@ public class transformDHItoSVFE extends QBeanSupport implements TransactionParti
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyMMdd");
         LocalDateTime now = LocalDateTime.now();
-        Card card = Card.builder().isomsg(msg).build();
+        //Card card = Card.builder().isomsg(msg).build();
 
         /**
          * hardcoded value for De22 for testing purpose
          * to be deleted
          */
-        svfeMsg.set(22, "511401511344");
 
         /////////////////////////////////////////
 
@@ -90,18 +87,13 @@ public class transformDHItoSVFE extends QBeanSupport implements TransactionParti
 
         StringBuilder dhiDE22 = new StringBuilder();
 
-        svfeMsg.set(2, card.getPan());
 
         if (msg.hasField(12)) {
             svfeMsg.set(12, dtf.format(now)+msg.getString(12));
             svfeMsg.set(15, dtf.format(now));
         }
-        svfeMsg.set(14, card.getExp());
-        if (card.getTrack2()!=null){
+        svfeMsg.set(14, msg.getString(14));
 
-            svfeMsg.set(35, card.getTrack2().getTrack());
-            svfeMsg.set("48.4", "000");
-        }
 
 
 
@@ -139,6 +131,16 @@ public class transformDHItoSVFE extends QBeanSupport implements TransactionParti
                     svfeMsg.set("48.2", "774");
                     svfeMsg.set("48.40", "1");
                     break;
+                case "500000":
+                    svfeMsg.set(2, msg.getString(2));
+                    svfeMsg.set(3, msg.getString(3));
+                    svfeMsg.set(4, msg.getString(4));
+
+                    if(msg.hasField(14))
+                        svfeMsg.set(14, msg.getString(14));
+                    svfeMsg.set(22, msg.getString(22));
+
+                    break;
 
             }
         }
@@ -149,7 +151,7 @@ public class transformDHItoSVFE extends QBeanSupport implements TransactionParti
 
             svfeMsg.set(11, ISOUtil.zeropad(SpaceUtil.nextLong(sp,"SVFE_TRACE"), 6));
 
-           // svfeMsg.set(11, msg.getString(11));
+            // svfeMsg.set(11, msg.getString(11));
         }
 
 
@@ -163,12 +165,10 @@ public class transformDHItoSVFE extends QBeanSupport implements TransactionParti
 
 
 
-        if(msg.hasField(28)){
-            svfeMsg.set("54.1", ISOUtil.zeropad(msg.getString(28).substring(1), 12));
-        }
+
 
         if(msg.hasField(23)){
-            svfeMsg.set(23, msg.getString(23).substring(1));
+            svfeMsg.unset(23);
         }
 
         if(msg.hasField(32)){
@@ -201,33 +201,30 @@ public class transformDHItoSVFE extends QBeanSupport implements TransactionParti
             svfeMsg.set(43, name+separator+street+separator+city+separator+separator+country+separator);
         }
 
+        if (msg.hasField(48)){
+            log.info("DE48 found");
+            msg.getComponent(48).dump(System.out, "DE48");
+
+            svfeMsg.set("48", msg.getComponent(48));
+        } else
+            log.info("DE48 not found");
+
         if(msg.hasField(49)){
             svfeMsg.set(49, msg.getString(49));
         }
 
         if(msg.hasField(52)){
-            byte[] pblock = msg.getBytes(52);
-            StringBuilder sb = new StringBuilder(pblock.length * 2);
-            for (byte b : pblock) {
-                sb.append(String.format("%02X", b));
-            }
-            svfeMsg.set(52, sb.toString());
-
+           svfeMsg.unset(52);
 
 
         }
+
 
         if (msg.hasField(55)){
-            TLVList de55 = new TLVList();
-            de55.unpack(msg.getBytes(55));
-            de55.deleteByTag(0x4F);
-            de55.deleteByTag(0x9F08);
-            de55.deleteByTag(0x9F34);
-            de55.deleteByTag(0x9F33);
-            de55.deleteByTag(0x9F35);
-            de55.append(0x84, "A0000000041010");
-            svfeMsg.set(55, de55.pack());
+
+            svfeMsg.unset(55);
         }
+        svfeMsg.set(100,"1431");
         return svfeMsg;
     }
 }

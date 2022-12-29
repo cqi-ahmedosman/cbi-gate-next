@@ -29,7 +29,7 @@ public class transformSVFEtoDHI extends QBeanSupport implements TransactionParti
         ISOMsg dhiReq;
 
 
-        ctx.dump(System.out, "");
+        //ctx.dump(System.out, "");
 
 
         ctx.put("SVFE-ORIGINAL-REQUEST", msg);

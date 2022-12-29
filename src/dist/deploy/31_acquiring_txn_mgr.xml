@@ -7,41 +7,82 @@
     <property name="debug-context" value="true"/>
 
 
-    <participant class="com.cannyquest.participants.Switch" logger="Q2">
-        <property name="500000" value="BillPayment" />
+    <participant class="com.cannyquest.participants.acquiring.Switch" logger="Q2">
+        <property name="500000" value="BILLPAYMENT" />
+        <property name="000000" value="RETAIL" />
+        <property name="010000" value="CASH" />
+
     </participant>
 
-    <group name="BillPayment">
-
-        <participant class="com.cannyquest.participants.billpayment.transformPOStoSVFE" logger="Q2"/>
+    <group name="BILLPAYMENT">
+        <participant class="com.cannyquest.participants.acquiring.billpayment.transformPOStoSVFE" logger="Q2"/>
         <participant class="org.jpos.transaction.participant.QueryHost" logger="Q2"/>
-        <participant class="com.cannyquest.participants.billpayment.transfromSVFEtoPOS" logger="Q2"/>
+        <participant class="com.cannyquest.participants.acquiring.billpayment.transfromSVFEtoPOS" logger="Q2"/>
         <participant class="org.jpos.transaction.participant.SendResponse" logger="Q2"/>
-
     </group>
 
-    <group name="FINANCIAL">
-        <participant class="com.cannyquest.participants.acquiring.BlockMCC" logger="Q2">
-                <property name="blocked-mcc" value="6010"/>
-                <property name="blocked-mcc" value="6011"/>
+
+    <group name="CASHEXPRESS">
+        <participant class="com.cannyquest.participants.acquiring.cashexpress.prepareCashExpressContext" logger="Q2"/>
+        <participant class="com.cannyquest.participants.acquiring.cashexpress.prepareBalanceInquiry" logger="Q2"/>
+        <participant class="org.jpos.transaction.participant.QueryHost" logger="Q2"/>
+        <participant class="com.cannyquest.participants.acquiring.cashexpress.prepareCashWithdrawal" logger="Q2"/>
+        <participant class="org.jpos.transaction.participant.QueryHost" logger="Q2"/>
+        <participant class="com.cannyquest.participants.acquiring.cashexpress.prepareCashExpressResponse" logger="Q2"/>
+        <participant class="org.jpos.transaction.participant.SendResponse" logger="Q2"/>
+    </group>
+
+
+
+
+    <group name="CASH">
+        <participant class="com.cannyquest.participants.acquiring.cash.BlockMCC" logger="Q2">
+            <property name="blocked-mcc" value="6010"/>
+            <property name="blocked-mcc" value="6011"/>
         </participant>
 
 
-        <participant class="com.cannyquest.participants.acquiring.BlockCashExpress" logger="Q2"/>
-        <participant class="com.cannyquest.participants.acquiring.MockAcquirerID" logger="Q2"/>
-        <participant class="com.cannyquest.participants.acquiring.transformDHItoSVFE" logger="Q2"/>
+        <participant class="com.cannyquest.participants.acquiring.cash.BlockCashExpress" logger="Q2"/>
+        <participant class="com.cannyquest.participants.acquiring.cash.MockAcquirerID" logger="Q2"/>
+        <participant class="com.cannyquest.participants.acquiring.common.transformDHItoSVFE" logger="Q2"/>
 
         <!--
-        <participant class="com.cannyquest.participants.acquiring.MockPINBlock"/>
+        <participant class="com.cannyquest.participants.acquiring.retail.MockPINBlock"/>
 
-        <participant class="com.cannyquest.participants.acquiring.calcFees">
+        <participant class="com.cannyquest.participants.acquiring.retail.calcFees">
             <property name="CashWithdrawalFees" value="0.004" />
         </participant>
 
         -->
 
         <participant class="org.jpos.transaction.participant.QueryHost" logger="Q2"/>
-        <participant class="com.cannyquest.participants.acquiring.transfromSVFEtoDHI" logger="Q2"/>
+        <participant class="com.cannyquest.participants.acquiring.common.transfromSVFEtoDHI" logger="Q2"/>
+        <participant class="org.jpos.transaction.participant.SendResponse" logger="Q2"/>
+
+    </group>
+
+    <group name="RETAIL">
+        <participant class="com.cannyquest.participants.acquiring.retail.BlockMCC" logger="Q2">
+                <property name="blocked-mcc" value="6010"/>
+                <property name="blocked-mcc" value="6011"/>
+        </participant>
+
+
+        <participant class="com.cannyquest.participants.acquiring.retail.BlockCashExpress" logger="Q2"/>
+        <participant class="com.cannyquest.participants.acquiring.retail.MockAcquirerID" logger="Q2"/>
+        <participant class="com.cannyquest.participants.acquiring.retail.transformDHItoSVFE" logger="Q2"/>
+
+        <!--
+        <participant class="com.cannyquest.participants.acquiring.retail.MockPINBlock"/>
+
+        <participant class="com.cannyquest.participants.acquiring.retail.calcFees">
+            <property name="CashWithdrawalFees" value="0.004" />
+        </participant>
+
+        -->
+
+        <participant class="org.jpos.transaction.participant.QueryHost" logger="Q2"/>
+        <participant class="com.cannyquest.participants.acquiring.retail.transfromSVFEtoDHI" logger="Q2"/>
         <participant class="org.jpos.transaction.participant.SendResponse" logger="Q2"/>
 
     </group>

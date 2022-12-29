@@ -142,13 +142,16 @@
   <isofieldpackager
           id="22"
           length="4"
-          name="DE-22"
+          name="DHI-POS-ENTRY-MODE"
           class="org.jpos.iso.IFB_NUMERIC"
           emitBitmap="false"
           packager="org.jpos.iso.packager.GenericSubFieldPackager">
 
-
-
+    <isofield
+            id="0"
+            length="1"
+            name="PLACE_HOLDER"
+            class="org.jpos.iso.IFB_BINARY"/>
     <isofield
             id="1"
             length="1"

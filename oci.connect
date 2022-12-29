@@ -1,0 +1,1 @@
+ssh -i /home/aosman/Downloads/ssh-key-2022-12-19.key ubuntu@129.151.155.121
